@@ -1,4 +1,5 @@
 import copy
+import random
 from time import sleep
 
 WHITE_CELL = 0
@@ -12,6 +13,9 @@ class Maze:
         self.n_lines = len(board)
         self.n_cols = len(board[0])
         self.board = copy.deepcopy(board)
+
+    def initpath(self):
+        self.path = [["" for j in range(self.n_cols)] for i in range(self.n_lines)]
 
     def __repr__(self):
         transform = {
@@ -34,20 +38,35 @@ class Maze:
     def valid(self, line, col):
         return line >= 0 and line < self.n_lines and col >= 0 and col < self.n_cols
 
+    def vertice_neighbours(self, line, col):
+        neighs = []
+        for dl in [-1, 0, +1]:
+            for dc in [-1, 0, +1]:
+                if dl == 0 and dc == 0:
+                    continue
+                new_l, new_c = line+dl, col+dc
+                if not self.valid(new_l, new_c):
+                    continue
+                neighs.append([new_l, new_c])
+        return neighs
+
+    def edge_neighbours(self, line, col):
+        neighs = []
+        for dl, dc, direction in [[0, +1, 'U'], [0, -1, 'D'], [+1, 0, 'R'], [-1, 0, 'L']]:
+            new_l, new_c = line+dl, col+dc
+            if not self.valid(new_l, new_c):
+                continue
+            neighs.append([new_l, new_c, direction])
+        return neighs
+
     def count(self, line, col):
         n_white = 0
         n_green = 0
-        for dl in [-1, 0, +1]:
-            for dc in [-1, 0, +1]:
-                    if dl == 0 and dc == 0:
-                        continue
-                    new_l, new_c = line+dl, col+dc
-                    if not self.valid(new_l, new_c):
-                        continue
-                    if self.board[new_l][new_c] == WHITE_CELL:
-                        n_white += 1
-                    if self.board[new_l][new_c] == GREEN_CELL:
-                            n_green += 1
+        for neigh_l, neigh_c in self.vertice_neighbours(line, col):
+            if self.board[neigh_l][neigh_c] == WHITE_CELL:
+                n_white += 1
+            if self.board[neigh_l][neigh_c] == GREEN_CELL:
+                n_green += 1
         ans = {"n_white" : n_white, "n_green" : n_green}
         if line == 3 and col == 3:
             print(ans)
@@ -168,23 +187,44 @@ board_stone_2 = str_to_board(
 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 0000000000000000000000000000000000000000000000000000000000000000000000000000000000004""")
 
-def diff_mazes(next_maze, maze):
+def evaluate_path_mazes(next_maze, maze):
     # compara todas as celulas do next_maze com as vizinhas do maze
     # se a do maze tiver uma string nao vazia, entao o vizinho do next_maze
     # pode ser chegado. dai a gente concatena com a direcao
-    pass
+    next_maze.path = [["" for j in range(maze.n_cols)] for i in range(maze.n_lines)]
+    poss_neighs = [[[] for j in range(maze.n_cols)] for i in range(maze.n_lines)]
+    for i in range(maze.n_lines):
+        for j in range(maze.n_cols):
+            if maze.board[i][j] == '':
+                continue
+            for line, col, direction in maze.edge_neighbours(i, j):
+                poss_neighs[line][col].append([i, j, direction])
+    for i in range(maze.n_lines):
+        for j in range(maze.n_cols):
+            if len(poss_neighs[i][j]) == 0:
+                continue
+            # could be also be poss_neighs[i][j][0] for determinism
+            line, col, direction = poss_neighs[i][j][0] # random.choice(poss_neighs[i][j])
+            next_maze.path[i][j] = maze.path[line][col] + " " + direction
 
     
 def find_path(maze: Maze) -> str:
-    next_maze = maze.next()
-    diff = diff_mazes(next_maze, maze)
+    assert maze.board[0][0] == 3 # assume the start is at the top left corner
+    assert maze.board[-1][-1] == 4 # assume the finish is at the bottom right corner
+    maze.initpath()
+    maze.path[0][0] = 'X' # just to have a non-null path at 3
+    while maze.path[-1][-1] == '':
+        print(maze)
+        print(maze.path)
+        sleep(2)
+        next_maze = maze.next()
+        evaluate_path_mazes(next_maze, maze)
+        maze = next_maze
+    print(maze)
+    print(maze.path)
+    return maze.path[-1][-1]
+
 
 if __name__ == "__main__":
-    maze = Maze(board=board_stone_2)
-    for i in range(10000):
-        print("\n" * 100)
-        print(maze)
-        print(i)
-        maze = maze.next()
-        # sleep(2)
-        input()
+    maze = Maze(board=board_stone_1)
+    find_path(maze)
