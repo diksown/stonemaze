@@ -68,8 +68,6 @@ class Maze:
             if self.board[neigh_l][neigh_c] == GREEN_CELL:
                 n_green += 1
         ans = {"n_white" : n_white, "n_green" : n_green}
-        if line == 3 and col == 3:
-            print(ans)
         return ans
 
     def next_color(self, line, col):
@@ -80,13 +78,13 @@ class Maze:
             return FINISH
         elif cur_color == WHITE_CELL:
             n_green = self.count(line, col)["n_green"]
-            if n_green > 1 and n_green < 4: # 4 for 1st challenge, 5 for the 2nd
+            if n_green > 1 and n_green < 5: # 4 for 1st challenge, 5 for the 2nd
                 return GREEN_CELL
             else:
                 return WHITE_CELL
         elif cur_color == GREEN_CELL:
             n_green = self.count(line, col)["n_green"]
-            if n_green > 3 and n_green < 7: # 7 for 1st challenge, 6 for the 2nd
+            if n_green > 3 and n_green < 6: # 7 for 1st challenge, 6 for the 2nd
                 return GREEN_CELL
             else:
                 return WHITE_CELL
@@ -218,18 +216,18 @@ def find_path(maze: Maze) -> str:
     maze.path[0][0] = 'X' # just to have a non-null path at 3
     while maze.path[-1][-1] == '':
         print(maze)
-        print(maze.path)
-        sleep(0.2)
+        # print(maze.path)
+        # sleep(0.2)
         next_maze = maze.next()
         evaluate_path_mazes(next_maze, maze)
         maze = next_maze
-    print(maze)
-    print(maze.path)
+    # print(maze)
+    # print(maze.path)
     return maze.path[-1][-1]
 
 
 if __name__ == "__main__":
-    maze = Maze(board=board_stone_1)
+    maze = Maze(board=board_stone_2)
     path = find_path(maze)
     print("\n"*10)
     print(path)
