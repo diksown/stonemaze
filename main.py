@@ -52,7 +52,7 @@ class Maze:
 
     def edge_neighbours(self, line, col):
         neighs = []
-        for dl, dc, direction in [[0, +1, 'U'], [0, -1, 'D'], [+1, 0, 'R'], [-1, 0, 'L']]:
+        for dl, dc, direction in [[0, +1, 'R'], [0, -1, 'L'], [+1, 0, 'D'], [-1, 0, 'U']]:
             new_l, new_c = line+dl, col+dc
             if not self.valid(new_l, new_c):
                 continue
@@ -96,6 +96,7 @@ class Maze:
         for i in range(self.n_lines):
             for j in range(self.n_cols):
                 maze.board[i][j] = self.next_color(i, j)
+        maze.initpath()
         return maze
 
 def str_to_board(st):
@@ -195,7 +196,7 @@ def evaluate_path_mazes(next_maze, maze):
     poss_neighs = [[[] for j in range(maze.n_cols)] for i in range(maze.n_lines)]
     for i in range(maze.n_lines):
         for j in range(maze.n_cols):
-            if maze.board[i][j] == '':
+            if maze.path[i][j] == '':
                 continue
             for line, col, direction in maze.edge_neighbours(i, j):
                 poss_neighs[line][col].append([i, j, direction])
@@ -203,8 +204,10 @@ def evaluate_path_mazes(next_maze, maze):
         for j in range(maze.n_cols):
             if len(poss_neighs[i][j]) == 0:
                 continue
+            if next_maze.board[i][j] == GREEN_CELL:
+                continue
             # could be also be poss_neighs[i][j][0] for determinism
-            line, col, direction = poss_neighs[i][j][0] # random.choice(poss_neighs[i][j])
+            line, col, direction = random.choice(poss_neighs[i][j])
             next_maze.path[i][j] = maze.path[line][col] + " " + direction
 
     
@@ -216,7 +219,7 @@ def find_path(maze: Maze) -> str:
     while maze.path[-1][-1] == '':
         print(maze)
         print(maze.path)
-        sleep(2)
+        sleep(0.5)
         next_maze = maze.next()
         evaluate_path_mazes(next_maze, maze)
         maze = next_maze
