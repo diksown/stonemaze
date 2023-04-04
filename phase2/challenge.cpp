@@ -48,12 +48,12 @@ struct Board {
 
     Board(vector<bitset<BOARD_SIZE>>& initialBoard) { board = initialBoard; }
 
-    bool valid(Coord co) {
+    bool valid(const Coord& co) {
         return co.lin >= 0 and co.lin < BOARD_SIZE and co.col >= 0 and
                co.col < BOARD_SIZE;
     }
 
-    vector<Coord> vNeighbours(Coord co) {
+    vector<Coord> vNeighbours(const Coord& co) {
         vector<Coord> neighs;
         for (auto dl : {-1, 0, 1}) {
             for (auto dc : {-1, 0, 1}) {
@@ -65,7 +65,7 @@ struct Board {
         return neighs;
     }
 
-    vector<Coord> eNeighbours(Coord co) {
+    vector<Coord> eNeighbours(const Coord& co) {
         vector<Coord> neighs;
         for (auto coord :
              vector<pair<int, int>>{{0, -1}, {0, 1}, {1, 0}, {-1, 0}}) {
@@ -77,37 +77,38 @@ struct Board {
         return neighs;
     }
 
-    bool isYellow(Coord co) {
+    bool isYellow(const Coord& co) {
         return co == Coord(0, 0) or co == Coord(BOARD_SIZE - 1, BOARD_SIZE - 1);
     }
 
-    bool isGreen(Coord co) {
+    bool isGreen(const Coord& co) {
         if (!valid(co)) err("Can't check invalid coord");
         if (isYellow(co)) return false;
         return board[co.lin][co.col] == GREEN;
     }
 
-    bool isWhite(Coord co) {
+    bool isWhite(const Coord& co) {
         if (!valid(co)) err("Can't check invalid coord");
         if (isYellow(co)) return false;
         return board[co.lin][co.col] == WHITE;
     }
 
-    map<bool, int> countNeighbourColor(Coord co) {
-        map<bool, int> colorCount;
+    vector<int> countNeighbourColor(const Coord& co) {
+        vector<int> colorCount(2);
         colorCount[WHITE] = 0;
         colorCount[GREEN] = 0;
         for (auto coord : vNeighbours(co)) {
             if (isWhite(coord)) colorCount[WHITE]++;
             if (isGreen(coord)) colorCount[GREEN]++;
         }
+        cout << colorCount[WHITE] << " " << colorCount[GREEN] << endl;
         return colorCount;
     }
 
-    bool shouldChange(Coord co) {
+    bool shouldChange(const Coord& co) {
         if (!valid(co)) err("Can't check invalid coord");
         if (isYellow(co)) return false;
-        map<bool, int> colorCount = countNeighbourColor(co);
+        vector<int> colorCount = countNeighbourColor(co);
         // White cells turn green if they have a number of green adjacent cells
         // greater than 1 and less than 5. Otherwise, they remain white.
         if (isWhite(co)) {
@@ -118,6 +119,8 @@ struct Board {
         if (isGreen(co)) {
             return !(colorCount[GREEN] > 3 and colorCount[GREEN] < 6);
         }
+        err("Shouldn't reach here");
+        return false;
     }
 
     void next() {
@@ -128,6 +131,7 @@ struct Board {
                     newBoard[lin][col] = !newBoard[lin][col];
             }
         }
+        board = newBoard;
     }
 
     void show() {
@@ -174,9 +178,9 @@ void sleep(int x) { this_thread::sleep_for(std::chrono::milliseconds(x)); }
 signed main() {
     fastcin;
     Board b = readBoardFromFile("input/phase1input2.txt");
-    while (true) {
-        sleep(1000);
-        b.next();
+    for (int i = 0; i < 1000; i++) {
         b.show();
+        b.next();
+        sleep(1000);
     }
 }
