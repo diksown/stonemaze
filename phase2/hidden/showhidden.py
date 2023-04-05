@@ -1,5 +1,5 @@
 maze = []
-with open("input/input4.txt") as f:
+with open("../input/input4.txt") as f:
     lines = f.readlines()
     maze = [line.split() for line in lines]
 
