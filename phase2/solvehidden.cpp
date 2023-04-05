@@ -28,6 +28,8 @@ int foundCount = 0;
 int n, m;
 vector<pair<int, int>> order;
 vector<int> firstIt(1000);
+string sol = "";
+ll ct = 0;
 
 void dfs(board b, vector<vector<char>> &visited, int l, int c, char color) {
     if (l < 0 || l >= n || c < 0 || c >= m) return;
@@ -119,18 +121,29 @@ void solve(board &b, int it = 0) {
         return;
     }
     int l = order[it].first, c = order[it].second;
-    b[l][c] = '0';
-    solve(b, it + 1);
     b[l][c] = '1';
+    sol += '1';
     solve(b, it + 1);
+    sol.pop_back();
+    b[l][c] = '0';
+    sol += '0';
+    solve(b, it + 1);
+    sol.pop_back();
     b[l][c] = 'x';
 }
 
 signed main() {
     fastcin;
-    board b = {"xxxxxx1xxx", "x0xxx01xx1", "xxx1xxxx0x", "x11xx1x1xx",
-               "1xxxx0xx1x", "xxx1xxx10x", "x1xxxx11xx", "1xxxxxxx1x",
-               "xx1xx1x11x", "x1xx1xxxxx"};
+    board b = {"xxxxxx1xxx",  //
+               "x0xxx01xx1",  //
+               "xxx1xxxx0x",  //
+               "x11xx1x1xx",  //
+               "1xxxx0xx1x",  //
+               "xxx1xxx10x",  //
+               "x1xxxx11xx",  //
+               "1xxxxxxx1x",  //
+               "xx1xx1x11x",  //
+               "x1xx1xxxxx"};
     n = b.size();
     m = b[0].size();
     priority_queue<pair<int, pair<int, int>>> pq;
