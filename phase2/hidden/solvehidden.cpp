@@ -151,7 +151,7 @@ signed main() {
         for (int j = 0; j < m; j++) {
             if (b[i][j] != 'x') continue;
             int count = count_neighbours(b, i, j);
-            pq.push({-count, {i, j}});
+            pq.push({-(i * n + j), {i, j}});
         }
     }
 
@@ -165,5 +165,18 @@ signed main() {
     }
 
     solve(b);
+
+    // found!!
+    // 1111111111
+    // 1000001001
+    // 1011011101
+    // 1110010100
+    // 1011000110
+    // 1001010100
+    // 1101011110
+    // 1000000010
+    // 1010110110
+    // 1111100000
+
     cout << foundCount << endl;
 }
