@@ -1,6 +1,7 @@
 #include "board.h"
 
 #include <chrono>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <thread>
@@ -9,11 +10,9 @@
 #define WHITE 0
 #define GREEN 1
 
-bool** createMatrixBool(int n, int m) {
-    bool** matrix = new bool*[n];
-    for (int i = 0; i < n; i++) {
-        matrix[i] = new bool[m];
-    }
+std::vector<std::vector<bool>> createMatrixBool(int n, int m) {
+    std::vector<std::vector<bool>> matrix =
+        std::vector<std::vector<bool>>(n, std::vector<bool>(m, false));
     return matrix;
 }
 
@@ -34,31 +33,20 @@ const std::vector<std::string> BOARD11 = {
     "00000000",  //
 };
 
-bool** board;
-
+std::vector<std::vector<bool>> board;
 int n, m;
 
 Board::Board(int n, int m) {
     this->n = n;
     this->m = m;
-    board = new bool*[n];
-    for (int i = 0; i < n; i++) {
-        board[i] = new bool[m];
-        for (int j = 0; j < m; j++) {
-            board[i][j] = false;
-        }
-    }
-};
-
-Board::~Board() {
-    for (int i = 0; i < n; i++) {
-        delete[] board[i];
-    }
-    delete[] board;
+    this->board =
+        std::vector<std::vector<bool>>(n, std::vector<bool>(m, false));
 };
 
 // returns true if the cell (l, c) is inside the board
-bool Board::isValid(int l, int c) { return l >= 0 && l < n && c >= 0 && c < m; };
+bool Board::isValid(int l, int c) {
+    return l >= 0 && l < n && c >= 0 && c < m;
+};
 
 // returns the amount of neighbours of the cell (l, c) that are alive
 int Board::countNeighbours(int l, int c) {
@@ -90,8 +78,8 @@ bool Board::shouldChange(int l, int c, std::string mode = "second_phase") {
     return false;
 };
 
-void Board::update(std::string mode = "second_phase") {
-    bool** newBoard = createMatrixBool(n, m);
+void Board::update(std::string mode) {
+    std::vector<std::vector<bool>> newBoard = createMatrixBool(n, m);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             if (shouldChange(i, j, mode)) {
@@ -107,20 +95,31 @@ void Board::update(std::string mode = "second_phase") {
     newBoard[0][0] = WHITE;
     newBoard[n - 1][m - 1] = WHITE;
 
-    deleteMatrixBool(board, n);
     board = newBoard;
 };
 
 Board Board::simpleBoard() {
     int n = BOARD11.size();
     int m = BOARD11[0].size();
-    Board board(n, m);
+    Board sb(n, m);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            board.board[i][j] = BOARD11[i][j] == '1';
+            sb.board[i][j] = BOARD11[i][j] == '1';
         }
     }
-    return board;
+    return sb;
+};
+
+Board Board::randomBoard() {
+    int n = 20;
+    int m = 20;
+    Board rb(n, m);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            rb.board[i][j] = std::rand() % 2;
+        }
+    }
+    return rb;
 };
 
 void Board::print() {
@@ -132,4 +131,4 @@ void Board::print() {
     }
 };
 
-void show(){};
+void Board::show(){};

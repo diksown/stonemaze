@@ -37,13 +37,11 @@ void deleteMatrixLidi(lidi** matrix, int n) {
 
 int main() {
     fastcin;
-    // testing the board
-    Board board = Board::simpleBoard();
-    board.print();
-    for (int i = 0; i < 100; i++) {
+    Board board = Board::randomBoard();
+    for (int i = 0; i < 2e5; i++) {
         // take a nap
         this_thread::sleep_for(chrono::milliseconds(10));
-        board.update("first_phase");
+        board = Board::randomBoard();
         board.print();
         cout << endl;
     }
