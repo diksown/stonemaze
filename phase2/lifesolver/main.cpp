@@ -103,20 +103,24 @@ struct Board {
     }
 
     // returns true if the cell (l, c) should change its state
-    bool shouldChange(int l, int c) {
+    bool shouldChange(int l, int c, bool firstPhase = false) {
         int count = countNeighbours(l, c);
+        // the first sigmageek challenge
+        // had a different ruleset
+        int maxGreenWhenWhite = firstPhase ? 4 : 5;
+        int maxGreenWhenGreen = firstPhase ? 7 : 6;
         if (board[l][c] == WHITE) {
-            return count > 1 && count < 5;
+            return count > 1 && count < maxGreenWhenWhite;
         } else if (board[l][c] == GREEN) {
-            return !(count > 3 && count < 6);
+            return !(count > 3 && count < maxGreenWhenGreen);
         }
     }
 
-    void update() {
+    void update(bool firstPhase = false) {
         bool** newBoard = createMatrixBool(n, m);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (shouldChange(i, j)) {
+                if (shouldChange(i, j, firstPhase)) {
                     newBoard[i][j] = !board[i][j];
                 } else {
                     newBoard[i][j] = board[i][j];
@@ -148,7 +152,7 @@ struct Board {
     void print() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                cout << board[i][j];
+                cout << (board[i][j] == WHITE ? " " : "█");
             }
             cout << endl;
         }
@@ -157,4 +161,18 @@ struct Board {
     void show() {}
 };
 
-int main() { fastcin; }
+int main() {
+    fastcin;
+    // testing the board
+    Board board = Board::simpleBoard();
+    board.print();
+    for (int i = 0; i < 100; i++) {
+        // receive an input to stop the program
+        // just press enter to continue
+        string s;
+        getline(cin, s);
+        board.update(true);
+        board.print();
+        cout << endl;
+    }
+}
