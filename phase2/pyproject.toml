@@ -10,6 +10,7 @@ python = "^3.10"
 numpy = "^1.24.2"
 loguru = "^0.6.0"
 matplotlib = "^3.7.1"
+pyseagull = "^1.0.0b4"
 
 
 [tool.poetry.group.dev.dependencies]
