@@ -16,13 +16,6 @@ std::vector<std::vector<bool>> createMatrixBool(int n, int m) {
     return matrix;
 }
 
-void deleteMatrixBool(bool** matrix, int n) {
-    for (int i = 0; i < n; i++) {
-        delete[] matrix[i];
-    }
-    delete[] matrix;
-}
-
 const std::vector<std::string> BOARD11 = {
     "00000000",  //
     "00001000",  //
@@ -33,14 +26,10 @@ const std::vector<std::string> BOARD11 = {
     "00000000",  //
 };
 
-std::vector<std::vector<bool>> board;
-int n, m;
-
 Board::Board(int n, int m) {
     this->n = n;
     this->m = m;
-    this->board =
-        std::vector<std::vector<bool>>(n, std::vector<bool>(m, false));
+    this->board = createMatrixBool(n, m);
 };
 
 // returns true if the cell (l, c) is inside the board
@@ -123,7 +112,7 @@ Board Board::randomBoard(int n, int m) {
 void Board::print() {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            std::cout << (board[i][j] == WHITE ? " " : "█");
+            std::cout << (board[i][j] == WHITE ? "  " : "██");
         }
         std::cout << std::endl;
     }
