@@ -107,13 +107,15 @@ struct Board {
         int count = countNeighbours(l, c);
         // the first sigmageek challenge
         // had a different ruleset
-        int maxGreenWhenWhite = firstPhase ? 4 : 5;
-        int maxGreenWhenGreen = firstPhase ? 7 : 6;
         if (board[l][c] == WHITE) {
-            return count > 1 && count < maxGreenWhenWhite;
+            return count > 1 && count < (firstPhase ? 4 : 5);
         } else if (board[l][c] == GREEN) {
-            return !(count > 3 && count < maxGreenWhenGreen);
+            return !(count > 3 && count < (firstPhase ? 7 : 6));
         }
+
+        // panic, boolean is not 0 or 1
+        exit(1);
+        return false;
     }
 
     void update(bool firstPhase = false) {
@@ -167,10 +169,8 @@ int main() {
     Board board = Board::simpleBoard();
     board.print();
     for (int i = 0; i < 100; i++) {
-        // receive an input to stop the program
-        // just press enter to continue
-        string s;
-        getline(cin, s);
+        // take a nap
+        this_thread::sleep_for(chrono::milliseconds(10));
         board.update(true);
         board.print();
         cout << endl;
