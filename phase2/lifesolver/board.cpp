@@ -110,9 +110,7 @@ Board Board::simpleBoard() {
     return sb;
 };
 
-Board Board::randomBoard() {
-    int n = 20;
-    int m = 20;
+Board Board::randomBoard(int n, int m) {
     Board rb(n, m);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {

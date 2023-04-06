@@ -12,7 +12,7 @@ struct Board {
     static Board simpleBoard();
     void print();
     void show();
-    static Board randomBoard();
+    static Board randomBoard(int n = 20, int m = 20);
 
    private:
     bool isValid(int l, int c);

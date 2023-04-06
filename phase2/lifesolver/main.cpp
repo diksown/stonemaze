@@ -38,7 +38,7 @@ void deleteMatrixLidi(lidi** matrix, int n) {
 int main() {
     fastcin;
     Board board = Board::randomBoard();
-    for (int i = 0; i < 2e5; i++) {
+    for (int i = 0; i < 10; i++) {
         // take a nap
         this_thread::sleep_for(chrono::milliseconds(10));
         board = Board::randomBoard();

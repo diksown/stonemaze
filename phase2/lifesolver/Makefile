@@ -13,10 +13,10 @@ board.o: board.cpp board.h
 	$(CC) $(CFLAGS) -c board.cpp
 
 valgrind: main
-	valgrind --show-leak-kinds=all --track-origins=yes ./main
+	time valgrind --show-leak-kinds=all --track-origins=yes ./main
 
 clean:
 	rm -f main *.o
 	
 run: main
-	./main
+	time ./main
