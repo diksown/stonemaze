@@ -79,4 +79,13 @@ with open('input4.txt', 'w') as file:
     for row in matrix:
         file.write(' '.join(row) + '\n')
 
+# remove spaces in all files
+for i in range(1, 5):
+    with open(f'input{i}.txt', 'r+') as file:
+        text = file.read()
+        text = text.replace(' ', '')
+        file.seek(0)
+        file.write(text)
+        file.truncate()
+
 print("=== all necessary files downloaded! ===")

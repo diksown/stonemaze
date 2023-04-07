@@ -11,9 +11,9 @@ void solve() {
             Board::getBoardFromFile("input" + std::to_string(i) + ".txt");
         Simulation sim = Simulation(bd);
 
-        int nLives = 1;
-        if (i == 2) nLives = 6;
-        sim.run(nLives);
+        // int nLives = 1;
+        // if (i == 2) nLives = 6;
+        // sim.run(nLives);
         std::cout << sim.result << std::endl;
     }
 }

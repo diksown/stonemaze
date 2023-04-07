@@ -123,10 +123,13 @@ Board Board::getBoardFromFile(std::string filename, bool log) {
     std::string line;
     std::vector<std::string> lines;
     while (std::getline(file, line)) {
+        while (line.back() == '\r' || line.back() == '\n') {
+            line.pop_back();
+        }
         lines.push_back(line);
     }
     int n = (int)lines.size();
-    int m = (int)lines[0].size() / 2 + 1;
+    int m = (int)lines[0].size();
     if (log) {
         std::cout << "Board size: " << n << "x" << m << '\n';
     }
