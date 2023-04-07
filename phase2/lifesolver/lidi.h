@@ -19,7 +19,7 @@ struct LidiBoard {
     std::vector<std::string> repr();
 
    private:
-    void propagate(int l, int c, LidiBoard& NewLidiBoard, bool isGreen);
+    void getNextParticle(int l, int c, LidiBoard& newLidiBoard, bool isGreen);
     void initLidiBoard(int nLines, int nCols);
 };
 

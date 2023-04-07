@@ -113,10 +113,11 @@ Board Board::randomBoard(int n, int m, int seed) {
 std::vector<std::string> Board::repr() {
     std::vector<std::string> repr;
     for (int i = 0; i < n; i++) {
-        std::string line = "";
+        std::string line = "░░";
         for (int j = 0; j < m; j++) {
             line += (board[i][j] == WHITE ? "  " : "██");
         }
+        line += "░░";
         repr.push_back(line);
     }
     return repr;

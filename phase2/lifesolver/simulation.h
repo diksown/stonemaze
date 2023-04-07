@@ -22,7 +22,7 @@ struct Simulation {
     // iterations = -1 => run until a particle reaches the bottom.
     // sleepTime = 0 => no sleep between iterations.
 
-    void run(int lives = 1, bool log = false, int sleepTimeMs = 100,
+    void run(int lives = 1, bool log = false, double sleepTimeSeconds = 0,
              int iterations = -1);
 };
 

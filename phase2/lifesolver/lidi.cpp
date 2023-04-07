@@ -73,41 +73,45 @@ bool isOutside(int l, int c, int n, int m) {
     return l < 0 || l >= n || c < 0 || c >= m;
 }
 
-void LidiBoard::propagate(int l, int c, LidiBoard& NewLidiBoard, bool isGreen) {
-    // Check the life of the cell
-    int life = getLife(board[l][c]);
-    if (life == 0) return;
-
-    // If the cell is green, it will lose life
-    if (isGreen) life--;
-    if (life == 0) return;
-
+// Will set (l, c) particle in newLidiBoard to the best particle
+// And how we reached it
+void LidiBoard::getNextParticle(int l, int c, LidiBoard& newLidiBoard,
+                                bool isGreen) {
     // U, R, D, L
     int dl[] = {-1, 0, 1, 0};
     int dc[] = {0, 1, 0, -1};
 
-    // Propagate the particle to the neighbours
+    int life = getLife(newLidiBoard.board[l][c]);
+
+    // Get the best neighbour
     for (int dir = 0; dir < 4; dir++) {
         int nl = l + dl[dir];
         int nc = c + dc[dir];
         if (isOutside(nl, nc, n, m)) continue;
-        lidi particle = NewLidiBoard.board[nl][nc];
-        int nlife = getLife(particle);
-        if (life > nlife) {
-            NewLidiBoard.board[nl][nc] = packLidi({life, dir + 1});
+
+        lidi neighbour = board[nl][nc];
+        int neighbourLife = getLife(neighbour);
+
+        // If the cell is green, it will lose life
+        if (isGreen) neighbourLife--;
+
+        // If the neighbour is better, update the newLidiBoard
+        if (neighbourLife > life) {
+            life = neighbourLife;
+            newLidiBoard.board[l][c] = packLidi({life, dir + 1});
         }
     }
 }
 
 LidiBoard LidiBoard::getNextLidiBoard(Board& futureBoard) {
     // Initialize everything with zeros, which 0X (0 lives, direction X)
-    LidiBoard NewLidiBoard(futureBoard.n, futureBoard.m);
+    LidiBoard newLidiBoard(futureBoard.n, futureBoard.m);
     for (int l = 0; l < futureBoard.n; l++) {
         for (int c = 0; c < futureBoard.m; c++) {
-            propagate(l, c, NewLidiBoard, futureBoard.board[l][c]);
+            getNextParticle(l, c, newLidiBoard, futureBoard.board[l][c]);
         }
     }
-    return NewLidiBoard;
+    return newLidiBoard;
 }
 
 char getDirectionChar(int direction) {
