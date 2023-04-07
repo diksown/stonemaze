@@ -99,7 +99,8 @@ Board Board::simpleBoard() {
     return sb;
 };
 
-Board Board::randomBoard(int n, int m) {
+Board Board::randomBoard(int n, int m, int seed) {
+    std::srand(seed);
     Board rb(n, m);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
@@ -119,12 +120,6 @@ std::vector<std::string> Board::repr() {
         repr.push_back(line);
     }
     return repr;
-};
-
-void Board::print() {
-    for (auto line : repr()) {
-        std::cout << line << std::endl;
-    }
 };
 
 std::ostream& operator<<(std::ostream& o, Board& board) {

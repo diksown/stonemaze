@@ -42,19 +42,24 @@ std::vector<std::vector<lidi>> createMatrixLidi(int n, int m) {
     return matrix;
 }
 
-void LidiBoard::initLidiBoard(int nLines, int nCols, int lives) {
+void LidiBoard::initLidiBoard(int nLines, int nCols) {
     n = nLines;
     m = nCols;
     board = createMatrixLidi(n, m);
-    board[0][0] = packLidi({lives, LIDI_X});
 }
 
-LidiBoard::LidiBoard(int nLines, int nCols, int lives) {
-    initLidiBoard(nLines, nCols, lives);
+LidiBoard::LidiBoard(int nLines, int nCols) { initLidiBoard(nLines, nCols); }
+
+LidiBoard::LidiBoard(const Board& initialBoard) {
+    initLidiBoard(initialBoard.n, initialBoard.m);
 }
 
-LidiBoard::LidiBoard(const Board& initialBoard, int lives) {
-    initLidiBoard(initialBoard.n, initialBoard.m, lives);
+LidiBoard LidiBoard::getLidiBoardWithOneParticle(int nLines, int nCols,
+                                                 int lives,
+                                                 std::pair<int, int> pos) {
+    LidiBoard lidiBoard = LidiBoard(nLines, nCols);
+    lidiBoard.board[pos.first][pos.second] = packLidi({lives, LIDI_X});
+    return lidiBoard;
 }
 
 int getLife(lidi particle) { return (particle >> 3) & 0b111; }

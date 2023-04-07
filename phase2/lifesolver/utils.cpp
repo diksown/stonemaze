@@ -3,6 +3,6 @@
 #include <chrono>
 #include <thread>
 
-void nap(int milliseconds) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+void nap(int sleepTimeMs) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(sleepTimeMs));
 }

@@ -10,9 +10,8 @@ struct Board {
     Board(int nLines, int nCols);
     void next(std::string mode = "second_phase");
     static Board simpleBoard();
-    void print();
     std::vector<std::string> repr();
-    static Board randomBoard(int nLines = 20, int nCols = 20);
+    static Board randomBoard(int nLines = 20, int mLines = 20, int seed = 42);
 
    private:
     bool isValid(int l, int c);

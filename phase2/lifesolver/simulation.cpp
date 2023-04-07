@@ -3,22 +3,29 @@
 #include "board.h"
 #include "lidi.h"
 
-void Simulation::runAndShow(int lives, int sleepTime, int iterations) {
+void Simulation::run(int lives, bool log, int sleepTimeMs, int iterations) {
+    // Check if simulation was already run.
+    if (lidiBoards.size() != 0) {
+        std::cout << "Simulation was already run. Returning." << std::endl;
+        return;
+    }
+
     Board curBoard = initialBoard;
-    LidiBoard curLidiBoard = LidiBoard(initialBoard, lives);
+    LidiBoard curLidiBoard =
+        LidiBoard::getLidiBoardWithOneParticle(curBoard.n, curBoard.m, lives);
 
     lidiBoards.push_back(curLidiBoard);
-    display(curBoard, curLidiBoard);
+    if (log) display(curBoard, curLidiBoard);
 
     int curIteration = 0;
     while (iterations == -1 || curIteration < iterations) {
-        display(curBoard, curLidiBoard);
-        if (sleepTime != 0) {
-            nap(sleepTime);
+        if (sleepTimeMs != 0) {
+            nap(sleepTimeMs);
         }
         curBoard.next();
         curLidiBoard = curLidiBoard.getNextLidiBoard(curBoard);
         lidiBoards.push_back(curLidiBoard);
+        if (log) display(curBoard, curLidiBoard);
         curIteration++;
     }
 }
