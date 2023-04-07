@@ -30,16 +30,19 @@ std::vector<std::vector<lidi>> createMatrixLidi(int n, int m) {
     return matrix;
 }
 
-LidiBoard::LidiBoard(int nLines, int nCols) {
+void LidiBoard::initLidiBoard(int nLines, int nCols, int lives) {
     n = nLines;
     m = nCols;
     board = createMatrixLidi(n, m);
+    board[0][0] = packLidi({lives, LIDI_X});
 }
 
-LidiBoard::LidiBoard(const Board& initialBoard) {
-    n = initialBoard.n;
-    m = initialBoard.m;
-    board = createMatrixLidi(n, m);
+LidiBoard::LidiBoard(int nLines, int nCols, int lives) {
+    initLidiBoard(nLines, nCols, lives);
+}
+
+LidiBoard::LidiBoard(const Board& initialBoard, int lives) {
+    initLidiBoard(initialBoard.n, initialBoard.m, lives);
 }
 
 std::pair<int, int> unpackLidi(lidi particle) {
