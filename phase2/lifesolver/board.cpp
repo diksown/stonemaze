@@ -26,10 +26,10 @@ const std::vector<std::string> BOARD11 = {
     "00000000",  //
 };
 
-Board::Board(int n, int m) {
-    this->n = n;
-    this->m = m;
-    this->board = createMatrixBool(n, m);
+Board::Board(int nLines, int nCols) {
+    this->n = nLines;
+    this->m = nCols;
+    this->board = createMatrixBool(nLines, nCols);
 };
 
 // returns true if the cell (l, c) is inside the board
@@ -88,11 +88,11 @@ void Board::next(std::string mode) {
 };
 
 Board Board::simpleBoard() {
-    int n = BOARD11.size();
-    int m = BOARD11[0].size();
-    Board sb(n, m);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
+    int nLines = (int)BOARD11.size();
+    int nCols = (int)BOARD11[0].size();
+    Board sb(nLines, nCols);
+    for (int i = 0; i < nLines; i++) {
+        for (int j = 0; j < nCols; j++) {
             sb.board[i][j] = BOARD11[i][j] == '1';
         }
     }
@@ -109,13 +109,20 @@ Board Board::randomBoard(int n, int m) {
     return rb;
 };
 
-void Board::print() {
+std::vector<std::string> Board::repr() {
+    std::vector<std::string> repr;
     for (int i = 0; i < n; i++) {
+        std::string line = "";
         for (int j = 0; j < m; j++) {
-            std::cout << (board[i][j] == WHITE ? "  " : "██");
+            line += (board[i][j] == WHITE ? "  " : "██");
         }
-        std::cout << std::endl;
+        repr.push_back(line);
     }
+    return repr;
 };
 
-void Board::show(){};
+void Board::print() {
+    for (auto line : repr()) {
+        std::cout << line << std::endl;
+    }
+};
