@@ -19,8 +19,6 @@ void solve() {
 }
 
 int main() {
-    Board bd = Board::getBoardFromFile("input11.txt");
-    Simulation sim = Simulation(bd);
-    sim.run(1, true);
-    std::cout << sim.result << std::endl;
+    // solve all challenges
+    solve();
 }
