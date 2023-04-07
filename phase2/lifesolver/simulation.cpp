@@ -24,9 +24,6 @@ SimulationResult Simulation::run(int lives, bool log, double sleepTimeSeconds,
 
     int curIteration = 0;
     while (iterations == -1 || curIteration < iterations) {
-        // Stop if one of the particles reached the bottom.
-        if (curLidiBoard.reachedEnd()) break;
-
         if (sleepTimeSeconds != 0) {
             nap(sleepTimeSeconds);
         }
@@ -35,6 +32,9 @@ SimulationResult Simulation::run(int lives, bool log, double sleepTimeSeconds,
         lidiBoards.push_back(curLidiBoard);
         if (log) display(curBoard, curLidiBoard);
         curIteration++;
+
+        // Stop if one of the particles reached the bottom.
+        if (curLidiBoard.reachedEnd()) break;
     }
 
     result = getResult();
@@ -49,7 +49,7 @@ SimulationResult Simulation::getResult() {
     int lenPath = (int)lidiBoards.size() - 1;
 
     // To keep track of the path.
-    int curLine = initialBoard.n, curCol = initialBoard.m;
+    int curLine = initialBoard.n - 1, curCol = initialBoard.m - 1;
 
     LidiBoard curLidiBoard = lidiBoards[lenPath];
 

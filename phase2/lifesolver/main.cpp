@@ -6,8 +6,9 @@
 #include "utils.h"
 
 int main() {
-    int bigsize = 500;
-    Board board = Board::randomBoard(bigsize, bigsize);
+    int bigsize = 5;
+    Board board = Board::randomBoard(bigsize, bigsize, 1);
     Simulation sim = Simulation(board);
-    sim.run(6, false, 0, bigsize);
+    sim.run(1, true, 0.5);
+    std::cout << sim.result << std::endl;
 }
