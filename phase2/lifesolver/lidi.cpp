@@ -25,10 +25,8 @@
 #define LIDI_L 0b100
 
 std::vector<std::vector<lidi>> createMatrixLidi(int n, int m) {
-    std::cout << "Creating matrix of size " << n << "x" << m << std::endl;
     std::vector<std::vector<lidi>> matrix =
         std::vector<std::vector<lidi>>(n, std::vector<lidi>(m));
-    std::cout << "Creating matrix of size " << n << "x" << m << std::endl;
     return matrix;
 }
 
