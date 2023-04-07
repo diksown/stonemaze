@@ -11,7 +11,9 @@ struct LidiBoard {
 
     LidiBoard(int n, int m);
     static LidiBoard getLidiBoardWithOneParticle(
-        int nLines, int nCols, int lives, std::pair<int, int> pos = {0, 0});
+        int nLines, int nCols, int lives = 1, std::pair<int, int> pos = {0, 0});
+    static LidiBoard getLidiBoardWithOneParticle(
+        const Board& board, int lives = 1, std::pair<int, int> pos = {0, 0});
     LidiBoard(const Board& board);
     LidiBoard getNextLidiBoard(Board& board);
     std::vector<std::string> repr();

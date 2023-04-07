@@ -6,8 +6,12 @@
 #include "utils.h"
 
 int main() {
-    Board board = Board::randomBoard(10, 10);
-    std::cout << board << std::endl;
-    Simulation sim = Simulation(board);
-    sim.run(1, true, 1000);
+    Board board = Board::randomBoard(5, 5);
+    LidiBoard lidiBoard = LidiBoard::getLidiBoardWithOneParticle(board);
+    for (int i = 0; i < 10; i++) {
+        Simulation::display(board, lidiBoard);
+        nap(2e3);
+        board.next();
+        lidiBoard = lidiBoard.getNextLidiBoard(board);
+    }
 }

@@ -16,7 +16,7 @@ struct Simulation {
 
     Simulation(Board board) : initialBoard(board) {}
 
-    void display(Board bd, LidiBoard lidiBd);
+    static void display(Board bd, LidiBoard lidiBd);
 
     // Runs the simulation for a given amount of iterations.
     // iterations = -1 => run until a particle reaches the bottom.

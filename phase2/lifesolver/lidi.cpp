@@ -62,6 +62,11 @@ LidiBoard LidiBoard::getLidiBoardWithOneParticle(int nLines, int nCols,
     return lidiBoard;
 }
 
+LidiBoard LidiBoard::getLidiBoardWithOneParticle(const Board& board, int lives,
+                                                 std::pair<int, int> pos) {
+    return getLidiBoardWithOneParticle(board.n, board.m, lives, pos);
+}
+
 int getLife(lidi particle) { return (particle >> 3) & 0b111; }
 
 bool isOutside(int l, int c, int n, int m) {
