@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -g -O3 -march=native -Wall -Wextra -Wpedantic -Werror -fstack-protector-strong
+CFLAGS = -g -O3 -Wall -Wextra -Wpedantic -Werror -fstack-protector-strong
 
 all: main
 

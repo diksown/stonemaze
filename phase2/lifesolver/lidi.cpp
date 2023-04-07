@@ -18,30 +18,28 @@
  * +----------- unused
  */
 
-typedef char lidi;
+#define LIDI_X 0b000
+#define LIDI_U 0b001
+#define LIDI_R 0b010
+#define LIDI_D 0b011
+#define LIDI_L 0b100
 
-#define LIDI_U 0b000
-#define LIDI_R 0b001
-#define LIDI_D 0b010
-#define LIDI_L 0b011
-#define LIDI_X 0b100
-
-std::vector<std::vector<lidi>> createMatrixlidi(int n, int m) {
+std::vector<std::vector<lidi>> createMatrixLidi(int n, int m) {
     std::vector<std::vector<lidi>> matrix =
-        std::vector<std::vector<lidi>>(n, std::vector<lidi>(m, false));
+        std::vector<std::vector<lidi>>(n, std::vector<lidi>(m));
     return matrix;
 }
 
 LidiBoard::LidiBoard(int n, int m) {
     this->n = n;
     this->m = m;
-    this->board = createMatrixlidi(n, m);
+    this->board = createMatrixLidi(n, m);
 }
 
 LidiBoard::LidiBoard(const Board& board) {
     this->n = board.n;
     this->m = board.m;
-    this->board = createMatrixlidi(n, m);
+    this->board = createMatrixLidi(n, m);
 }
 
 std::pair<int, int> unpackLidi(lidi particle) {
@@ -83,7 +81,7 @@ void LidiBoard::propagate(int l, int c, LidiBoard& NewLidiBoard, bool isGreen) {
         lidi particle = NewLidiBoard.board[nl][nc];
         int nlife = getLife(particle);
         if (life > nlife) {
-            NewLidiBoard.board[nl][nc] = packLidi({life, dir});
+            NewLidiBoard.board[nl][nc] = packLidi({life, dir + 1});
         }
     }
 }

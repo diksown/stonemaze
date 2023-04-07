@@ -3,6 +3,8 @@
 
 #include "board.h"
 
+typedef char lidi;
+
 struct LidiBoard {
     std::vector<std::vector<char>> board;
     int n, m;
