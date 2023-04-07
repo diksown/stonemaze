@@ -129,7 +129,8 @@ void Board::print() {
 
 std::ostream& operator<<(std::ostream& o, Board& board) {
     for (auto line : board.repr()) {
-        o << line << std::endl;
+        o << line << '\n';
     }
+    std::cout << std::flush;
     return o;
 }

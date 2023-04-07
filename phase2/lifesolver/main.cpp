@@ -7,7 +7,6 @@
 
 int main() {
     Board board = Board::randomBoard();
-
-    Simulation sim(board);
-    sim.runAndShow(1, true, 100);
+    Simulation sim = Simulation(board);
+    sim.runAndShow();
 }

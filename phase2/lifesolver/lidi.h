@@ -20,4 +20,6 @@ struct LidiBoard {
     void initLidiBoard(int nLines, int nCols, int lives);
 };
 
+std::ostream& operator<<(std::ostream& o, LidiBoard& lidib);
+
 #endif  // LIDI_H

@@ -123,8 +123,10 @@ std::vector<std::string> LidiBoard::repr() {
     return repr;
 }
 
-void LidiBoard::print() {
-    for (auto line : repr()) {
-        std::cout << line << std::endl;
+std::ostream& operator<<(std::ostream& o, LidiBoard& lidib) {
+    for (auto line : lidib.repr()) {
+        std::cout << line << '\n';
     }
+    std::cout << std::flush;
+    return o;
 }
