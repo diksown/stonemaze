@@ -25,6 +25,8 @@ struct LidiBoard {
     std::vector<std::string> repr();
     bool reachedEnd();
 
+    bool isDead();
+
    private:
     void getNextParticle(int l, int c, LidiBoard& newLidiBoard, bool isGreen);
     void initLidiBoard(int nLines, int nCols);

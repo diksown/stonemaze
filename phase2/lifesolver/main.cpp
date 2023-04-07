@@ -6,9 +6,8 @@
 #include "utils.h"
 
 int main() {
-    int bigsize = 5;
-    Board board = Board::randomBoard(bigsize, bigsize, 1);
-    Simulation sim = Simulation(board);
-    sim.run(1, true, 0.5);
+    Board bd = Board::getBoardFromFile("input11.txt");
+    Simulation sim = Simulation(bd);
+    sim.run(1, true);
     std::cout << sim.result << std::endl;
 }

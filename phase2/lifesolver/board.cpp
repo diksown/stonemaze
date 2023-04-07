@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <thread>
@@ -101,15 +102,44 @@ Board Board::simpleBoard() {
 
 Board Board::randomBoard(int n, int m, int seed) {
     std::srand(seed);
+    if (m == 0) m = n;
     Board rb(n, m);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            rb.board[i][j] = std::rand() % 2;
+            rb.board[i][j] = std::rand() % 3 == 0;
         }
     }
     rb.board[0][0] = rb.board[n - 1][m - 1] = WHITE;
     return rb;
 };
+
+// Board is the following format:
+// 0 0 0 0 0
+// 0 1 0 0 0
+// 0 0 1 0 0
+// Where the number of lines and columns are variable
+Board Board::getBoardFromFile(std::string filename, bool log) {
+    std::ifstream file(filename);
+    std::string line;
+    std::vector<std::string> lines;
+    while (std::getline(file, line)) {
+        lines.push_back(line);
+    }
+    int n = (int)lines.size();
+    int m = (int)lines[0].size() / 2 + 1;
+    if (log) {
+        std::cout << "Board size: " << n << "x" << m << '\n';
+    }
+    Board boardFromFile(n, m);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            int l = i;
+            int c = j * 2;
+            boardFromFile.board[i][j] = lines[l][c] == '1';
+        }
+    }
+    return boardFromFile;
+}
 
 std::vector<std::string> Board::repr() {
     std::vector<std::string> repr;

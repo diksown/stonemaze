@@ -66,6 +66,16 @@ bool LidiBoard::reachedEnd() {
     return life > 0;
 }
 
+bool LidiBoard::isDead() {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            int life = getLife(board[i][j]);
+            if (life > 0) return false;
+        }
+    }
+    return true;
+}
+
 int getLife(lidi particle) { return (particle >> 3) & 0b111; }
 
 bool isOutside(int l, int c, int n, int m) {

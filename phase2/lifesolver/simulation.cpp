@@ -35,6 +35,10 @@ SimulationResult Simulation::run(int lives, bool log, double sleepTimeSeconds,
 
         // Stop if one of the particles reached the bottom.
         if (curLidiBoard.reachedEnd()) break;
+        if (curLidiBoard.isDead()) {
+            warn("All particles are dead.");
+            return SimulationResult();
+        }
     }
 
     result = getResult();
@@ -77,7 +81,7 @@ SimulationResult Simulation::getResult() {
     }
     std::reverse(path.begin(), path.end());
     ans.path = path;
-    ans.nIterations = lenPath;
+    ans.pathLen = lenPath;
     return ans;
 }
 
@@ -106,6 +110,7 @@ void Simulation::display(Board bd, LidiBoard lidiBd) {
 }
 
 std::string SimulationResult::pathString() {
+    if (path.size() == 0) return "No path found.";
     std::string pathString = "";
     for (char c : path) {
         pathString += c;
@@ -116,6 +121,7 @@ std::string SimulationResult::pathString() {
 }
 
 std::ostream& operator<<(std::ostream& o, SimulationResult& result) {
-    o << "Path: " << result.pathString() << std::endl;
+    o << "Path:   " << result.pathString() << std::endl;
+    o << "Path Len: " << result.pathLen << std::endl;
     return o;
 }

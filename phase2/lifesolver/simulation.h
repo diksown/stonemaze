@@ -12,8 +12,9 @@
 // Will hold the result of a simulation, when a path is found.
 struct SimulationResult {
     std::vector<char> path;
-    int nIterations;
+    int pathLen;
     std::string pathString();
+    SimulationResult() : pathLen(-1) {}
 };
 
 // Will take a board as input and run a simulation on it.

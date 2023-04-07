@@ -11,7 +11,8 @@ struct Board {
     void next(std::string mode = "second_phase");
     static Board simpleBoard();
     std::vector<std::string> repr();
-    static Board randomBoard(int nLines = 20, int mLines = 20, int seed = 42);
+    static Board randomBoard(int nLines = 20, int nCols = 0, int seed = 42);
+    static Board getBoardFromFile(std::string filename, bool log = true);
 
    private:
     bool isValid(int l, int c);
