@@ -3,6 +3,8 @@
 
 #include "board.h"
 
+typedef char lidi;
+
 struct LidiBoard {
     std::vector<std::vector<char>> board;
     int n, m;
@@ -14,5 +16,7 @@ struct LidiBoard {
    private:
     void propagate(int l, int c, LidiBoard& NewLidiBoard, bool isGreen);
 };
+
+std::vector<std::vector<lidi>> createMatrixLidi(int n, int m);
 
 #endif  // LIDI_H
