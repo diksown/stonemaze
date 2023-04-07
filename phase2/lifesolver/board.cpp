@@ -117,5 +117,3 @@ void Board::print() {
         std::cout << std::endl;
     }
 };
-
-void Board::show(){};
