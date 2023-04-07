@@ -16,7 +16,6 @@ input_urls = [
     "https://s3.amazonaws.com/appforest_uf/f1680523137969x213247151951648770/input2.txt",
     "https://s3.amazonaws.com/appforest_uf/f1680523157547x633162309207000800/input3.txt",
     "https://s3.amazonaws.com/appforest_uf/f1680524207041x211831427323269980/input4.txt",
-    "https://s3.amazonaws.com/appforest_uf/f1680524222483x213247151951648770/input5.txt",
 ]
 
 
@@ -40,7 +39,7 @@ def get_file(url):
 
     print(f'== download of {filename} complete.')
 
-print("===== downloading 5 input files =====")
+print("===== downloading 4 input files =====")
 
 # all files are a square matrix of 0's and 1's 
 # and possibly '?'s 
