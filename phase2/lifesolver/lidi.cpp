@@ -38,6 +38,12 @@ LidiBoard::LidiBoard(int n, int m) {
     this->board = createMatrixlidi(n, m);
 }
 
+LidiBoard::LidiBoard(const Board& board) {
+    this->n = board.n;
+    this->m = board.m;
+    this->board = createMatrixlidi(n, m);
+}
+
 std::pair<int, int> unpackLidi(lidi particle) {
     int life = (particle >> 3) & 0b111;
     int direction = particle & 0b111;

@@ -7,6 +7,7 @@ struct LidiBoard {
     std::vector<std::vector<char>> board;
     int n, m;
     LidiBoard(int n, int m);
+    LidiBoard(const Board& board);
     LidiBoard getNextLidiBoard(Board& board);
     void print();
 

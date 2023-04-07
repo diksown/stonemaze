@@ -67,7 +67,7 @@ bool Board::shouldChange(int l, int c, std::string mode = "second_phase") {
     return false;
 };
 
-void Board::update(std::string mode) {
+void Board::next(std::string mode) {
     std::vector<std::vector<bool>> newBoard = createMatrixBool(n, m);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {

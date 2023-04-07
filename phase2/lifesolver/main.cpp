@@ -1,19 +1,21 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 #include "board.h"
-using namespace std;
-#define ll long long
-#define pb push_back
-#define fastcin cin.tie(0)->sync_with_stdio(0);
+#include "lidi.h"
+#include "utils.h"
 
 int main() {
-    fastcin;
     Board board = Board::randomBoard();
+    LidiBoard lidiBoard = LidiBoard(board);
+    std::vector<LidiBoard> lidiBoards;
+
     for (int i = 0; i < 10; i++) {
-        // take a nap
-        this_thread::sleep_for(chrono::milliseconds(10));
-        board = Board::randomBoard();
+        board.next();
+        LidiBoard newLidiBoard = lidiBoard.getNextLidiBoard(board);
+        lidiBoards.push_back(newLidiBoard);
         board.print();
-        cout << endl;
+        std::cout << std::endl;
+        newLidiBoard.print();
+        std::cout << std::endl;
     }
 }

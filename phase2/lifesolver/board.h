@@ -8,7 +8,7 @@ struct Board {
     std::vector<std::vector<bool>> board;
     int n, m;
     Board(int n, int m);
-    void update(std::string mode = "second_phase");
+    void next(std::string mode = "second_phase");
     static Board simpleBoard();
     void print();
     void show();

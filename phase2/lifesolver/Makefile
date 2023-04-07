@@ -3,8 +3,8 @@ CFLAGS = -g -O3 -march=native -Wall -Wextra -Wpedantic -Werror -fstack-protector
 
 all: main
 
-main: main.o board.o
-	$(CC) $(CFLAGS) -o main main.o board.o lidi.o
+main: main.o board.o lidi.o utils.o
+	$(CC) $(CFLAGS) -o main main.o board.o lidi.o utils.o
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c main.cpp
@@ -14,6 +14,9 @@ board.o: board.cpp board.h
 
 lidi.o: lidi.cpp lidi.h
 	$(CC) $(CFLAGS) -c lidi.cpp
+	
+utils.o: utils.cpp utils.h
+	$(CC) $(CFLAGS) -c utils.cpp
 
 valgrind: main
 	time valgrind --show-leak-kinds=all --track-origins=yes ./main
