@@ -136,9 +136,7 @@ Board Board::getBoardFromFile(std::string filename, bool log) {
     Board boardFromFile(n, m);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            int l = i;
-            int c = j * 2;
-            boardFromFile.board[i][j] = lines[l][c] == '1';
+            boardFromFile.board[i][j] = lines[i][j] == '1';
         }
     }
     return boardFromFile;
