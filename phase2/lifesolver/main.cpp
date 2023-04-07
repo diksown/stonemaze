@@ -13,7 +13,7 @@ void solve() {
 
         int nLives = 1;
         if (i == 2) nLives = 6;
-        sim.run(nLives, true);
+        sim.run(nLives);
         std::cout << sim.result << std::endl;
     }
 }
