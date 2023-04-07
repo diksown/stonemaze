@@ -17,6 +17,4 @@ struct LidiBoard {
     void propagate(int l, int c, LidiBoard& NewLidiBoard, bool isGreen);
 };
 
-std::vector<std::vector<lidi>> createMatrixLidi(int n, int m);
-
 #endif  // LIDI_H
