@@ -18,12 +18,6 @@
  * +----------- unused
  */
 
-#define LIDI_X 0b000
-#define LIDI_U 0b001
-#define LIDI_R 0b010
-#define LIDI_D 0b011
-#define LIDI_L 0b100
-
 std::pair<int, int> unpackLidi(lidi particle) {
     int life = (particle >> 3) & 0b111;
     int direction = particle & 0b111;
@@ -65,6 +59,11 @@ LidiBoard LidiBoard::getLidiBoardWithOneParticle(int nLines, int nCols,
 LidiBoard LidiBoard::getLidiBoardWithOneParticle(const Board& board, int lives,
                                                  std::pair<int, int> pos) {
     return getLidiBoardWithOneParticle(board.n, board.m, lives, pos);
+}
+
+bool LidiBoard::reachedEnd() {
+    int life = getLife(board[n - 1][m - 1]);
+    return life > 0;
 }
 
 int getLife(lidi particle) { return (particle >> 3) & 0b111; }

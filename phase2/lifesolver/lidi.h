@@ -5,6 +5,12 @@
 
 typedef char lidi;
 
+#define LIDI_X 0b000
+#define LIDI_U 0b001
+#define LIDI_R 0b010
+#define LIDI_D 0b011
+#define LIDI_L 0b100
+
 struct LidiBoard {
     std::vector<std::vector<char>> board;
     int n, m;
@@ -17,6 +23,7 @@ struct LidiBoard {
     LidiBoard(const Board& board);
     LidiBoard getNextLidiBoard(Board& board);
     std::vector<std::string> repr();
+    bool reachedEnd();
 
    private:
     void getNextParticle(int l, int c, LidiBoard& newLidiBoard, bool isGreen);
@@ -24,5 +31,9 @@ struct LidiBoard {
 };
 
 std::ostream& operator<<(std::ostream& o, LidiBoard& lidib);
+
+int getLife(lidi particle);
+
+std::pair<int, int> unpackLidi(lidi particle);
 
 #endif  // LIDI_H
