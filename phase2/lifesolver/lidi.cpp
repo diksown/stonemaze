@@ -30,16 +30,16 @@ std::vector<std::vector<lidi>> createMatrixLidi(int n, int m) {
     return matrix;
 }
 
-LidiBoard::LidiBoard(int n, int m) {
-    this->n = n;
-    this->m = m;
-    this->board = createMatrixLidi(n, m);
+LidiBoard::LidiBoard(int nLines, int nCols) {
+    n = nLines;
+    m = nCols;
+    board = createMatrixLidi(n, m);
 }
 
-LidiBoard::LidiBoard(const Board& board) {
-    this->n = board.n;
-    this->m = board.m;
-    this->board = createMatrixLidi(n, m);
+LidiBoard::LidiBoard(const Board& initialBoard) {
+    n = initialBoard.n;
+    m = initialBoard.m;
+    board = createMatrixLidi(n, m);
 }
 
 std::pair<int, int> unpackLidi(lidi particle) {
@@ -50,8 +50,8 @@ std::pair<int, int> unpackLidi(lidi particle) {
 
 lidi packLidi(std::pair<int, int> particle) {
     int life = particle.first;
-    char direction = particle.second;
-    return (life << 3) | direction;
+    int direction = particle.second;
+    return (lidi)((life << 3) | direction);
 }
 
 int getLife(lidi particle) { return (particle >> 3) & 0b111; }
@@ -86,12 +86,12 @@ void LidiBoard::propagate(int l, int c, LidiBoard& NewLidiBoard, bool isGreen) {
     }
 }
 
-LidiBoard LidiBoard::getNextLidiBoard(Board& board) {
+LidiBoard LidiBoard::getNextLidiBoard(Board& futureBoard) {
     // Initialize everything with zeros, which 0X (0 lives, direction X)
-    LidiBoard NewLidiBoard(board.n, board.m);
-    for (int l = 0; l < board.n; l++) {
-        for (int c = 0; c < board.m; c++) {
-            propagate(l, c, NewLidiBoard, board.board[l][c]);
+    LidiBoard NewLidiBoard(futureBoard.n, futureBoard.m);
+    for (int l = 0; l < futureBoard.n; l++) {
+        for (int c = 0; c < futureBoard.m; c++) {
+            propagate(l, c, NewLidiBoard, futureBoard.board[l][c]);
         }
     }
     return NewLidiBoard;

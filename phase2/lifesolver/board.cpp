@@ -26,10 +26,10 @@ const std::vector<std::string> BOARD11 = {
     "00000000",  //
 };
 
-Board::Board(int n, int m) {
-    this->n = n;
-    this->m = m;
-    this->board = createMatrixBool(n, m);
+Board::Board(int nLines, int nCols) {
+    this->n = nLines;
+    this->m = nCols;
+    this->board = createMatrixBool(nLines, nCols);
 };
 
 // returns true if the cell (l, c) is inside the board
@@ -88,11 +88,11 @@ void Board::next(std::string mode) {
 };
 
 Board Board::simpleBoard() {
-    int n = BOARD11.size();
-    int m = BOARD11[0].size();
-    Board sb(n, m);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
+    int nLines = (int)BOARD11.size();
+    int nCols = (int)BOARD11[0].size();
+    Board sb(nLines, nCols);
+    for (int i = 0; i < nLines; i++) {
+        for (int j = 0; j < nCols; j++) {
             sb.board[i][j] = BOARD11[i][j] == '1';
         }
     }
