@@ -12,6 +12,7 @@ struct Board {
     static Board simpleBoard();
     void print();
     void show();
+    std::vector<std::string> repr();
     static Board randomBoard(int nLines = 20, int nCols = 20);
 
    private:

@@ -11,6 +11,7 @@ struct LidiBoard {
     LidiBoard(int n, int m);
     LidiBoard(const Board& board);
     LidiBoard getNextLidiBoard(Board& board);
+    std::vector<std::string> repr();
     void print();
 
    private:

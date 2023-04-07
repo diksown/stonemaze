@@ -109,11 +109,20 @@ Board Board::randomBoard(int n, int m) {
     return rb;
 };
 
-void Board::print() {
+std::vector<std::string> Board::repr() {
+    std::vector<std::string> repr;
     for (int i = 0; i < n; i++) {
+        std::string line = "";
         for (int j = 0; j < m; j++) {
-            std::cout << (board[i][j] == WHITE ? "  " : "██");
+            line += (board[i][j] == WHITE ? "  " : "██");
         }
-        std::cout << std::endl;
+        repr.push_back(line);
+    }
+    return repr;
+};
+
+void Board::print() {
+    for (auto line : repr()) {
+        std::cout << line << std::endl;
     }
 };

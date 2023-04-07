@@ -106,13 +106,22 @@ char getDirectionChar(int direction) {
     return directionChar[direction];
 }
 
-void LidiBoard::print() {
+std::vector<std::string> LidiBoard::repr() {
+    std::vector<std::string> repr;
     for (int l = 0; l < n; l++) {
+        std::string line;
         for (int c = 0; c < m; c++) {
             int life, direction;
             std::tie(life, direction) = unpackLidi(board[l][c]);
-            std::cout << life << getDirectionChar(direction) << " ";
+            line += std::to_string(life) + getDirectionChar(direction) + " ";
         }
-        std::cout << std::endl;
+        repr.push_back(line);
+    }
+    return repr;
+}
+
+void LidiBoard::print() {
+    for (auto line : repr()) {
+        std::cout << line << std::endl;
     }
 }
