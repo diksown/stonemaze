@@ -1,8 +1,0 @@
-Board size: 7x8
-Path:   R R L L D U D U D D D D R D L D U R R R D R U D R R R
-Path Len: 27
-
-Board size: 65x85
-Path:   R R R R R R R R R R R R R R R R R R R R R R R R R R R D U D U D D D R U R R D R R R D L D R R R D R R R D R R R D R R U R R R D D D D D R R R R D D U D R D R R R D L D D D D R R D D D D R R R D R D D D L R R D D D D D D L L D R L R D R D D R R D R R R R R R R R U R D R D D R R R R D D R D D U D D D R R R D R R R R D D D D D D D D D D D D D D D D
-Path Len: 174
-
