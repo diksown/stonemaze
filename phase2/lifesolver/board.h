@@ -11,7 +11,6 @@ struct Board {
     void next(std::string mode = "second_phase");
     static Board simpleBoard();
     void print();
-    void show();
     std::vector<std::string> repr();
     static Board randomBoard(int nLines = 20, int nCols = 20);
 
@@ -20,5 +19,7 @@ struct Board {
     int countNeighbours(int l, int c);
     bool shouldChange(int l, int c, std::string mode);
 };
+
+std::ostream& operator<<(std::ostream& o, Board& board);
 
 #endif  // BOARD_H

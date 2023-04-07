@@ -24,6 +24,18 @@
 #define LIDI_D 0b011
 #define LIDI_L 0b100
 
+std::pair<int, int> unpackLidi(lidi particle) {
+    int life = (particle >> 3) & 0b111;
+    int direction = particle & 0b111;
+    return {life, direction};
+}
+
+lidi packLidi(std::pair<int, int> particle) {
+    int life = particle.first;
+    int direction = particle.second;
+    return (lidi)((life << 3) | direction);
+}
+
 std::vector<std::vector<lidi>> createMatrixLidi(int n, int m) {
     std::vector<std::vector<lidi>> matrix =
         std::vector<std::vector<lidi>>(n, std::vector<lidi>(m));
@@ -43,18 +55,6 @@ LidiBoard::LidiBoard(int nLines, int nCols, int lives) {
 
 LidiBoard::LidiBoard(const Board& initialBoard, int lives) {
     initLidiBoard(initialBoard.n, initialBoard.m, lives);
-}
-
-std::pair<int, int> unpackLidi(lidi particle) {
-    int life = (particle >> 3) & 0b111;
-    int direction = particle & 0b111;
-    return {life, direction};
-}
-
-lidi packLidi(std::pair<int, int> particle) {
-    int life = particle.first;
-    int direction = particle.second;
-    return (lidi)((life << 3) | direction);
 }
 
 int getLife(lidi particle) { return (particle >> 3) & 0b111; }
