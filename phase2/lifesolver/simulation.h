@@ -22,6 +22,9 @@ struct Simulation {
     Board initialBoard;
     std::vector<LidiBoard> lidiBoards;
     SimulationResult result;
+    int minDistance = 1e9;
+    int lBest = -1;
+    int rBest = -1;
 
     Simulation(Board board) : initialBoard(board) {}
 
@@ -33,9 +36,13 @@ struct Simulation {
     SimulationResult run(int lives = 1, bool log = false,
                          double sleepTimeSeconds = 0, int iterations = -1);
 
+    SimulationResult backtrackFrom(int line, int col, int ind);
     SimulationResult getResult();
+    SimulationResult getResultClosest();
 };
 
 std::ostream& operator<<(std::ostream& o, SimulationResult& result);
+
+std::ostream& operator<<(std::ostream& o, Simulation& sim);
 
 #endif  // LIFESOLVER_SIMULATION_H

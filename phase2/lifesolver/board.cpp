@@ -106,7 +106,7 @@ Board Board::randomBoard(int n, int m, int seed) {
     Board rb(n, m);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            rb.board[i][j] = std::rand() % 3 == 0;
+            rb.board[i][j] = std::rand() % 4 != 0;
         }
     }
     rb.board[0][0] = rb.board[n - 1][m - 1] = WHITE;

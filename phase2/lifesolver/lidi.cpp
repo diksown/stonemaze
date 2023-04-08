@@ -76,6 +76,26 @@ bool LidiBoard::isDead() {
     return true;
 }
 
+int LidiBoard::distToEnd(int l, int c) { return (n - l - 1) + (m - c - 1); }
+
+std::tuple<int, int, int> LidiBoard::getClosest() {
+    int minDist = 1e9;
+    int lBest = -1, cBest = -1;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            int life = getLife(board[i][j]);
+            if (life > 0) {
+                if (distToEnd(i, j) < minDist) {
+                    minDist = distToEnd(i, j);
+                    lBest = i;
+                    cBest = j;
+                }
+            }
+        }
+    }
+    return {minDist, lBest, cBest};
+}
+
 int getLife(lidi particle) { return (particle >> 3) & 0b111; }
 
 bool isOutside(int l, int c, int n, int m) {

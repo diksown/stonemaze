@@ -24,8 +24,9 @@ struct LidiBoard {
     LidiBoard getNextLidiBoard(Board& board);
     std::vector<std::string> repr();
     bool reachedEnd();
-
     bool isDead();
+    std::tuple<int, int, int> getClosest();
+    int distToEnd(int l, int c);
 
    private:
     void getNextParticle(int l, int c, LidiBoard& newLidiBoard, bool isGreen);
