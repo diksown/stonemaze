@@ -1,3 +1,4 @@
+*.zip
 input*.txt
 .vscode/
 __pycache__/
