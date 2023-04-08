@@ -1,11 +1,10 @@
 # Stonemaze
 
-<pre>Soluções para o Stone Automata Maze Challenge<pre>
+> Soluções para o Stone Automata Maze Challenge
 
 Esse repositório contém as minhas soluçoes para o desafio da Stone + SigmaGeek.
 
 Eram 5 desafios com variações entre eles, mas do jeito que eu fiz, acabei usando o mesmo algoritmo para os challenges 1, 2, 3 e 4.
-
 
 O algoritmo geral se encontra na pasta `phase2/lifesolver`:
 
