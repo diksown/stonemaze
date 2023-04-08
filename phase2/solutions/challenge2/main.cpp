@@ -6,7 +6,7 @@
 #include "utils.h"
 
 void solve() {
-    for (int i = 5; i <= 5; i++) {
+    for (int i = 4; i <= 4; i++) {
         Board bd =
             Board::getBoardFromFile("input" + std::to_string(i) + ".txt");
         Simulation sim = Simulation(bd);

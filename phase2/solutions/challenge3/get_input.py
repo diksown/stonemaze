@@ -16,7 +16,6 @@ input_urls = [
     "https://s3.amazonaws.com/appforest_uf/f1680523137969x213247151951648770/input2.txt",
     "https://s3.amazonaws.com/appforest_uf/f1680523157547x633162309207000800/input3.txt",
     "https://s3.amazonaws.com/appforest_uf/f1680524207041x211831427323269980/input4.txt",
-    "https://s3.amazonaws.com/appforest_uf/f1680526089921x934155345522667000/input5.txt",
 ]
 
 
