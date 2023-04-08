@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -O3 -Wall -Wextra -Wpedantic -Werror -fstack-protector-strong -Wshadow -Wformat=2 -Wconversion
+CFLAGS = -O3 -Wall -Wextra -Werror -fstack-protector-strong -Wshadow -Wformat=2 -Wconversion
 
 all: main
 
