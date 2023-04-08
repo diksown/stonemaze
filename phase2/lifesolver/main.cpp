@@ -12,7 +12,7 @@ void solve() {
         Simulation sim = Simulation(bd);
 
         int nLives = 1;
-        sim.run(nLives);
+        sim.run(nLives, true, 0.1);
         std::cout << sim.result << std::endl;
     }
 }
