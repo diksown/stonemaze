@@ -1,17 +1,41 @@
 # Stonemaze
 
-Instructions to solve 1-4 challenges of phase 2:
+<pre>Soluções para o Stone Automata Maze Challenge<pre>
 
-```sh
-# go to the folder with the scripts
+Esse repositório contém as minhas soluçoes para o desafio da Stone + SigmaGeek.
+
+Eram 5 desafios com variações entre eles, mas do jeito que eu fiz, acabei usando o mesmo algoritmo para os challenges 1, 2, 3 e 4.
+
+
+O algoritmo geral se encontra na pasta `phase2/lifesolver`:
+
+```
 cd phase2/lifesolver
+cat main.cpp
+#include <iostream>
 
-# download all 4 input files
-python get_input.py
+#include "board.h"
+#include "lidi.h"
+#include "simulation.h"
+#include "utils.h"
 
-# compile files
-make
+void solve() {
+    for (int i = 1; i <= 5; i++) {
+        Board bd =
+            Board::getBoardFromFile("input" + std::to_string(i) + ".txt");
+        Simulation sim = Simulation(bd);
 
-# solve all challenges
-time ./main | tee solutions.txt
+        int nLives = 1;
+        if (i == 2) nLives = 6;
+
+        sim.run(nLives);
+        std::cout << sim.result << std::endl;
+    }
+}
+
+int main() {
+    // Run all solutions
+    solve();
+}
+
 ```
